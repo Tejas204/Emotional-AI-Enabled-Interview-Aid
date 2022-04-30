@@ -1,0 +1,79 @@
+body{
+    background-image: linear-gradient(to right,#432452,#031121 40%);
+    overflow-x: hidden; 
+}
+
+nav{
+    width: 90%;
+    border-top-left-radius:30px;
+    border-bottom-left-radius:30px;
+    border-top-right-radius:30px;
+    border-bottom-right-radius:30px;  
+    margin-top: 1.5%;
+    margin-left: 5%;   
+}
+
+.nav-link{
+    color: black;
+}
+
+.spaced{
+    margin-right: 70px;
+}
+
+
+.title-text{
+    color: white;
+    margin-top: 30%;
+    margin-left: 20%;
+    font-size: 2em;
+}
+
+.slogan-text{
+    color: white;
+    position: relative;
+    margin-left:27%;
+}
+
+.audio-question{
+    color: white;
+}
+
+.record-audio-button{
+    width: 100%;
+    border: 2px solid #ff00ee;
+    transition: 2s;
+}
+
+.record-audio-button:hover{
+    background-color: #ff00ee;
+    box-shadow: 0 0 60px #ff00ee;
+    border: 2px solid #ff00ee;
+}
+
+
+.analysis-button{
+    width: 100%;
+    border: 2px solid #03e9f4;
+    transition: 2s;
+    margin-top: 1%;
+}
+
+.analysis-button:hover{
+    background-color: #03e9f4;
+    box-shadow: 0 0 60px #03e9f4;
+    border: 2px solid #03e9f4;
+}
+.next-button{
+    width: 100%;
+    border: 2px solid #03e9f4;
+    transition: 2s;
+    margin-top: 5%; 
+    color: black;
+  }
+  
+  .next-button:hover{
+    background-color: #03e9f4;
+    box-shadow: 0 0 60px #03e9f4;
+    border: 2px solid #03e9f4;
+  }
