@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/text_styles.css">
+    <script type="text/javascript" src="/static/js/d3/d3.js"></script>
+    <!--<script src="//d3js.org/d3-scale-chromatic.v0.3.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+      <!--Bootstrap-->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/text_styles.css')}}">
+      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>Dashboard</title>
+
+  </head>
+  <style>
+    .sticky-div{
+      position: -webkit-sticky;
+      position: sticky;
+      padding: 1%;
+      background-color: white;
+      border-radius: 5%;
+      border: 2px solid #ff00ee;
+      height: 100%;
+      margin-top: 1%;
+      top: 0;
+    }
+    .title-bar{
+        width: 90%;
+        height: 40%;
+        margin: 1%;
+        border-top-left-radius:30px;
+        border-bottom-left-radius:30px;
+        border-top-right-radius:30px;
+        border-bottom-right-radius:30px;  
+        background-image: linear-gradient(to right,#432452,#031121 40%);
+        color: white;
+        margin-left: 5%;
+    }
+    .main-emotion{
+        color: darkgrey;
+        font-size: 2em;
+    }
+    .other-emotion-bar{
+        width: 90%;
+        height: 20%;
+        margin: 1%;
+        margin-top: 10%;
+        border-top-left-radius:30px;
+        border-bottom-left-radius:30px;
+        border-top-right-radius:30px;
+        border-bottom-right-radius:30px;  
+        background-image: linear-gradient(to right,#432452,#031121 40%);
+        color: white;
+        margin-left: 5%;
+    }
+    .other-emotion-list{
+        text-decoration: none;
+        color: black;
+        font-size: 1.5em;
+        list-style-type: none;
+        padding: 3%;
+    }
+    #text_emotions_dist{
+        margin: 2%;
+        margin-top: 5%;
+    }
+    #text_emotions_pie{
+      margin: 2%;
+      margin-top: 5%;
+    }
+
+    
+
+</style>
+
+  <body>
+<!--navbar-->
+<div class="col-lg-12 navbar-div">
+  <nav class="nav navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container-fluid">
+          <a href = "#" class="navbar-brand mb-0 h1">
+              <img class= "d-inline-block align-middle" src="{{url_for('static', filename='css/images/mic.png')}}" height="45" width="45">
+              Interview.AI
+          </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class=" navbar-right" id="navbarNav">
+              <ul class="navbar-nav navbar-right">
+                  <li class="nav-item active">
+                      <a href="#" class="nav-link spaced"><h5>Home</h5></a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="#" class="nav-link spaced"><h5>About us</h5> </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="#" class="nav-link spaced"><h5>Practice</h5></a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="#" class="nav-link spaced"><h5>Contact</h5></a>
+                  </li>
+                  
+              </ul>
+          </div>
+      </div>
+  </nav>
+</div> 
+
+
+<!--Analysis-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7">
+            <!--Add graphs here-->
+            <!--<div><canvas id="text_emotions_dist"></canvas></div>-->
+            <div style="height: 50%; width: 65%;"><canvas id="text_emotions_pie"></canvas></div>
+            <!--<canvas id="audio_emotions_pie"></canvas>-->
+        </div>
+
+        <div class="col-lg-5 sticky-div">
+            <!--Exter text-->
+            <div class="title-bar d-flex justify-content-center">
+                <h4>Your most common emotion is:</h4>
+            </div>
+            <div class="main-emotion d-flex justify-content-center">
+                <p style="color: black;"><b>{{trait}}</b></p>
+            </div>
+
+            <div class="other-emotion-bar d-flex justify-content-center">
+                <h4>Other emotions are:</h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <ul class="other-emotion-list">
+                  <li>Extraversion      : {{traits[0]}}</li>
+                  <li>Neuroticism       : {{traits[1]}}</li>
+                  <li>Agreeableness     : {{traits[2]}}</li>
+                  <li>Conscientiousness : {{traits[3]}}</li>
+                  <li>Openness          : {{traits[4]}}</li>    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<!--Scripts-->
+
+<!--<script type="text/javascript" src="/static/js/hist_txt_perso.js"></script>-->
+
+<script>
+    d3.csv('static/js/db/text_perso.csv').then(makeChart);
+
+function makeChart(data) {
+  var emotion = data.map(function(d) {return d.TRAIT});
+  var value = data.map(function(d) {return d.VALUE});
+
+  
+
+  var chart = new Chart('text_emotions_dist', {
+    type: 'bar',
+    data: {
+      labels: emotion,
+      datasets: [
+        {
+          backgroundColor: ["#7a0b75", "#7a0b75","#7a0b75","#7a0b75","#7a0b75"],
+          data: value
+        }
+      ]
+    },
+    options: {
+      legend: {display: false},
+    }
+  });
+
+  var prichart = new Chart("text_emotions_pie", {
+  type: "doughnut",
+  data: {
+      labels: emotion,
+      datasets: [{
+      backgroundColor: ["#1974D2", "#005CB6","#00459B","#003080","#001C66"],
+      data: value
+      }]
+  },
+  options: {
+      legend: {display: false},
+  }
+  });
+
+  
+}
+</script>
+
+  <!--
+    <form action="/oi_1" method="post">
+      <input type="submit" value="In depth Analysis">
+    </form>
+  -->
+
+    <form>
+      <input type="button" value="Back" onclick="history.go(-1)">
+    </form>
+
+</body>
+</html>
