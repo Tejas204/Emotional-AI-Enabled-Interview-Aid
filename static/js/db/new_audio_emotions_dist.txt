@@ -1,0 +1,10 @@
+EMOTION,VALUE
+Neutral,0
+Calm,0
+Happy,20
+Sad,0
+Angry,0
+fearful,0
+Disgust,80
+Surprise,0
+Robot,0

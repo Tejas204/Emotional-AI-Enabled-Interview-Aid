@@ -1,0 +1,6 @@
+Trait,Value,Value_Others
+Extraversion,40.0,40.0
+Neuroticism,57.0,57.0
+Agreeableness,63.0,63.0
+Conscientiousness,56.0,56.0
+Openness,50.0,50.0
