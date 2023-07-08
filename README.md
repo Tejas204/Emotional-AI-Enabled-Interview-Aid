@@ -1,6 +1,10 @@
 # Emotional-AI-Enabled-Interview-Aid
 This repository contains the code for the final year project created as a requirement for B.E Computer Engineering
 
+## Paper
+You can find the paper here: [Emotional AI-enabled Interview Aid](https://link.springer.com/chapter/10.1007/978-981-19-7041-2_49)
+
+## Summary
 One of the important stages in the life of a student is his or her first job. Naturally, a candidate will
 be quite nervous during an interview as it is a completely new experience. Due to such nervousness,
 a candidate might be able to speak properly or may not be able to project his/her emotions correctly.
